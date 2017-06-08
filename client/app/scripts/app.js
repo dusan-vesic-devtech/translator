@@ -31,19 +31,18 @@ angular
     })
 
     function HomeCtrl($http) {
-      this.now = '';
-      this.res = {}
+      this.res = []
       this.txt = 'HomeCtrl';
       this.debug = false;
 
-      this.$onInit = function() {
-        $http
-          .get('http://localhost:3000/server-1/now')
-          .then(res => {
-            this.now = res.data.now;
-            console.log(res.data.now)
-          })
-      }
+      // this.$onInit = function() {
+      //   $http
+      //     .get('http://localhost:3000/server-1/now')
+      //     .then(res => {
+      //       this.now = res.data.now;
+      //       console.log(res.data.now)
+      //     })
+      // }
 
       this.translate = function(payload) {
         $http.post('http://localhost:3000/server-2/translate'

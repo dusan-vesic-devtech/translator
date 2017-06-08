@@ -1,13 +1,14 @@
-require('dotenv').config()
 
 const express = require('express')
 const app = express()
 const morgan = require('morgan')
 const axios = require('axios')
-const bodyParser = require('body-parser')
 const async = require('async');
+const bodyParser = require('body-parser')
 const env = app.get('env')
 const PORT = process.env.PORT || 3002
+
+require('dotenv').config()
 
 app.use(require('cors')());
 app.use(bodyParser.json())
@@ -26,10 +27,11 @@ app.post('/translate', (req, res) => {
   let toLangs = []
   let merged = []
 
-  // extract langs
-  ['de', 'es', 'it', 'sr'].forEach(el => {
-    req.body.hasOwnProperty(el) ? toLangs.push(el) : null
-  })
+  for (el of ['de', 'es', 'it', 'sr']) {
+    if (req.body.hasOwnProperty(el)) {
+      toLangs.push(el);
+    }
+  }
 
   async.eachSeries(toLangs, function(el, callback) {
     let tr_url = `https://translate.yandex.net/api/v1.5/tr.json/translate?key=${process.env.APIKEY}&text=${text}&lang=en-${el}`
@@ -40,7 +42,7 @@ app.post('/translate', (req, res) => {
           text: text,
           result: response.data
         });
-        callback(null)
+        callback(null);
       })
   }, function(err, result) {
       if (err) res.send(err)
