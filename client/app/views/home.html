@@ -1,0 +1,60 @@
+<div class="row">
+    <!--<div class="col-sm-12">
+        <h2>{{$ctrl.txt}}</h2>
+        <hr>
+        <div>
+            <h2 ng-if="$ctrl.now">{{$ctrl.now}}</h2>
+        </div>
+    </div>-->
+    <div class="col-xs-10 col-xs-offset-1 col-md-6 col-md-offset-3">
+        <h3>Word to translate:</h3>
+        <form no-validate name='myForm'>
+            <div class="form-group">
+                <input ng-model='$ctrl.payload.source' required
+                    class="form-control">
+            </div>
+            <div class="checkbox">
+                <label>
+                <input ng-model="$ctrl.payload.de" 
+                    type="checkbox"> German
+                </label>
+            </div>
+            <div class="checkbox">
+                <label>
+                <input ng-model="$ctrl.payload.es" 
+                    type="checkbox"> Spanish
+                </label>
+            </div>
+            <div class="checkbox">
+                <label>
+                <input ng-model="$ctrl.payload.it" 
+                    type="checkbox"> Italian
+                </label>
+            </div>
+            <div class="checkbox">
+                <label>
+                <input ng-model="$ctrl.payload.sr" 
+                    type="checkbox"> Serbian
+                </label>
+            </div>
+            <button ng-click="$ctrl.translate($ctrl.payload)"
+                ng-disabled="myForm.$invalid"
+                type="button" class="btn btn-primary btn-lg btn-block">Block level button</button>
+        </form>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-10 col-xs-offset-1 col-md-6 col-md-offset-3">
+        <h2>Translations</h2>
+        <div ng-if="$ctrl.res.length > 0" class="panel panel-default">
+            <ul class="list-group">
+                <li class="list-group-item" ng-repeat="tr in $ctrl.res">{{tr.to}} => {{tr.result.text[0]}}</li>
+            </ul>
+        </div>
+        <div ng-if="$ctrl.debug" class="panel panel-default">
+            <div class="panel-body">
+                {{$ctrl.res|json}}
+            </div>
+        </div>
+    </div>
+</div>
